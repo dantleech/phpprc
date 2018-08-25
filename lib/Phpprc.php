@@ -26,7 +26,7 @@ class Phpprc
         $extensions = $this->resolveExtensions($parameterResolver);
         $config = $this->loadConfig();
 
-        $container = $this->loadContainer($parameterResolver, $extensions, []);
+        $container = $this->loadContainer($parameterResolver, $extensions, $config);
 
         return $container;
     }

@@ -2,7 +2,7 @@
 
 namespace Phpprc\Core\Config;
 
-use Phpprc\Core\Config\ConfiguredPackage;
+use Phpprc\Core\Package\Package;
 use Phpprc\Core\Config\ConfiguredPackages;
 use Prophecy\Exception\InvalidArgumentException;
 
@@ -45,7 +45,7 @@ class Config
         $config = array_merge($defaults, $config);
 
         $this->packages = new ConfiguredPackages(array_map(function ($key, $value) {
-            $package = ConfiguredPackage::fromString($key);
+            $package = Package::fromString($key);
             return $package;
         }, array_keys($config['packages']), array_values($config['packages'])));
     }

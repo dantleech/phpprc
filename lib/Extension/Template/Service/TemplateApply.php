@@ -47,7 +47,7 @@ class TemplateApply
         }
     }
 
-    private function applyTemplates($package)
+    private function applyTemplates(Package $package)
     {
         foreach ($this->templates as $template) {
             $template = $this->twig->createTemplate($template->contents());

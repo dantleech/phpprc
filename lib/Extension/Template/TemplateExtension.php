@@ -12,10 +12,18 @@ class TemplateExtension implements Extension
 {
     public function configure(ParameterResolver $optionsResolver)
     {
+        $optionsResolver->setDefaults([
+            'prototype' => [],
+            'packages' => [],
+        ]);
     }
 
     public function register(ContainerBuilder $container)
     {
+        $container->register(PackagesFactory::class, function (Container $container) {
+
+        });
+
         $container->register(TemplateApplyCommand::class, function (Container $container) {
             return new TemplateApplyCommand();
         }, [ 'console.command' => [] ]);
