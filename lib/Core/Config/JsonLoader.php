@@ -5,7 +5,7 @@ namespace Phpprc\Core\Config;
 use Phpprc\Core\Filesystem;
 use Seld\JsonLint\JsonParser;
 
-class JsonLoader
+class JsonLoader implements Loader
 {
     const DIST_FILE = 'phpprc.json.dist';
     const FILE = 'phpprc.json';
@@ -25,14 +25,13 @@ class JsonLoader
      */
     private $configFactory;
 
-    public function __construct(Filesystem $filesystem, JsonParser $parser, ConfigFactory $configFactory)
+    public function __construct(?Filesystem $filesystem = null, ?JsonParser $parser = null)
     {
-        $this->filesystem = $filesystem;
-        $this->parser = $parser;
-        $this->configFactory = $configFactory;
+        $this->filesystem = $filesystem ?: new Filesystem(getcwd());
+        $this->parser = $parser ?: new JsonParser();
     }
 
-    public function load(): Config
+    public function load(): array
     {
         $configFile = null;
         foreach ([
@@ -45,11 +44,11 @@ class JsonLoader
         }
 
         if (null === $configFile) {
-            return $this->configFactory->empty();
+            return [];
         }
 
         $configContents = $this->filesystem->readContents($configFile);
 
-        return $this->configFactory->fromArray($this->parser->parse($configContents, JsonParser::PARSE_TO_ASSOC));
+        return $this->parser->parse($configContents, JsonParser::PARSE_TO_ASSOC);
     }
 }

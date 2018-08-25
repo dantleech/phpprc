@@ -24,11 +24,6 @@ class JsonLoaderTest extends TestCase
     /**
      * @var ObjectProphecy
      */
-    private $configFactory;
-
-    /**
-     * @var ObjectProphecy
-     */
     private $config;
 
     /**
@@ -40,13 +35,10 @@ class JsonLoaderTest extends TestCase
     {
         $this->filesystem = $this->prophesize(Filesystem::class);
         $this->parser = new JsonParser();
-        $this->configFactory = $this->prophesize(ConfigFactory::class);
-        $this->config = $this->prophesize(Config::class);
 
         $this->loader = new JsonLoader(
             $this->filesystem->reveal(),
-            $this->parser,
-            $this->configFactory->reveal()
+            $this->parser
         );
     }
 
@@ -55,9 +47,7 @@ class JsonLoaderTest extends TestCase
         $this->filesystem->existsInCurrentDirectory(JsonLoader::DIST_FILE)->willReturn(false);
         $this->filesystem->existsInCurrentDirectory(JsonLoader::FILE)->willReturn(false);
 
-        $this->configFactory->empty()->willReturn($this->config->reveal());
-
-        $this->assertEquals($this->config->reveal(), $this->loader->load());
+        $this->assertEquals([], $this->loader->load());
     }
 
     public function testLoadsDistFile()
@@ -66,9 +56,8 @@ class JsonLoaderTest extends TestCase
         $this->filesystem->existsInCurrentDirectory(JsonLoader::FILE)->willReturn(false);
 
         $this->filesystem->readContents(JsonLoader::DIST_FILE)->willReturn('{"one":"two"}');
-        $this->configFactory->fromArray(['one'=>'two'])->willReturn($this->config->reveal());
 
-        $this->assertEquals($this->config->reveal(), $this->loader->load());
+        $this->assertEquals(['one'=> 'two'], $this->loader->load());
     }
 
     public function testLoadsStandardFile()
@@ -77,8 +66,7 @@ class JsonLoaderTest extends TestCase
         $this->filesystem->existsInCurrentDirectory(JsonLoader::FILE)->willReturn(true);
 
         $this->filesystem->readContents(JsonLoader::FILE)->willReturn('{"one":"two"}');
-        $this->configFactory->fromArray(['one'=>'two'])->willReturn($this->config->reveal());
 
-        $this->assertEquals($this->config->reveal(), $this->loader->load());
+        $this->assertEquals(['one'=> 'two'], $this->loader->load());
     }
 }

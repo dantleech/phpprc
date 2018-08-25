@@ -4,5 +4,5 @@ namespace Phpprc\Core\Config;
 
 interface Loader
 {
-    public function load(): Config;
+    public function load(): array; 
 }
