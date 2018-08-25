@@ -1,0 +1,39 @@
+{
+    "name": "dantleech/phpprc",
+    "description": "Tool for managing multiple repositories at once",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Daniel Leech",
+            "email": "daniel@dantleech.com"
+        }
+    ],
+    "require": {
+        "symfony/console": "^4.1",
+        "twig/twig": "^2.5",
+        "phpactor/container": "^1.0",
+        "symfony/options-resolver": "^4.1"
+    },
+    "require-dev": {
+        "behat/behat": "^3.5",
+        "phpunit/phpunit": "^7.3",
+        "friendsofphp/php-cs-fixer": "^2.13",
+        "phpactor/test-utils": "dev-master",
+        "symfony/process": "^4.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Phpprc\\": "lib/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Phpprc\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    }
+}

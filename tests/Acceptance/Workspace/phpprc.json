@@ -1,0 +1,24 @@
+{
+    "modules": {
+        "template": {
+            "source": "templates/my-template.twig",
+            "dest": "README.md"
+        }
+    }
+    "prototype": {
+        "apply": [ "template" ],
+        "base_path": "base"
+    },
+    "packages": {
+        "vendor1/package1": {
+            "attributes": {
+                "title": "One"
+            }
+        },
+        "vendor1/package2": {
+            "attributes": {
+                "title": "Two"
+            }
+        }
+    }
+}

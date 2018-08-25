@@ -1,0 +1,10 @@
+#!/usr/bin/env php
+<?php
+
+use Phpprc\Extension\Core\Console\Application;
+use Phpprc\Phpprc;
+
+require __DIR__ . '/../vendor/autoload.php';
+
+$application = (new Phpprc())->container()->get(Application::class);
+$application->run();
