@@ -4,9 +4,14 @@ namespace Phpprc\Extension\Core;
 
 use Phpactor\Container\Container;
 use Phpactor\Container\ContainerBuilder;
+use Phpprc\Core\Config\ConfigFactory;
+use Phpprc\Core\Config\JsonLoader;
+use Phpprc\Core\Config\Loader;
 use Phpprc\Core\Extension;
+use Phpprc\Core\Filesystem;
 use Phpprc\Core\ParameterResolver;
 use Phpprc\Extension\Core\Console\Application;
+use Seld\JsonLint\JsonParser;
 
 class CoreExtension implements Extension
 {
@@ -16,15 +21,41 @@ class CoreExtension implements Extension
 
     public function register(ContainerBuilder $container)
     {
+        $this->registerConfig($container);
+        $this->registerConsole($container);
+    }
+
+    private function registerConsole(ContainerBuilder $container)
+    {
         $container->register(Application::class, function (Container $container) {
             $application = new Application();
-
+        
             foreach ($container->getServiceIdsForTag('console.command') as $serviceId => $attributes) {
                 $command = $container->get($serviceId);
                 $application->add($command);
             }
-
+        
             return $application;
+        });
+    }
+
+    private function registerConfig(ContainerBuilder $container)
+    {
+        $container->register(Config::class, function (Container $container) {
+            return $container->get(Loader::class)->load();
+        });
+        $container->register(Loader::class, function (Container $container) {
+            return new JsonLoader(
+                $container->get(Filesystem::class),
+                new JsonParser(),
+                $container->get(ConfigFactory::class)
+            );
+        });
+        $container->register(Filesystem::class, function (Container $container) {
+            return new Filesystem();
+        });
+        $container->register(ConfigFactory::class, function (Container $container) {
+            return new ConfigFactory();
         });
     }
 }

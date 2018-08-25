@@ -4,12 +4,12 @@ namespace Phpprc\Core\Config;
 
 class ConfigFactory
 {
-    public function fromArray(array $config)
+    public function fromArray(array $config): Config
     {
         return Config::fromArray($config);
     }
 
-    public function empty()
+    public function empty(): Config
     {
         return Config::empty();
     }

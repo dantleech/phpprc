@@ -3,7 +3,7 @@
 namespace Phpprc\Extension\Template\Service;
 
 use Phpprc\Core\Filesystem;
-use Phpprc\Core\Package\SelectedPackages;
+use Phpprc\Core\Config\ConfiguredPackages;
 use Twig\Environment;
 
 class TemplateApply
@@ -29,7 +29,7 @@ class TemplateApply
     private $templates;
 
     public function __construct(
-        SelectedPackages $packages,
+        ConfiguredPackages $packages,
         Templates $templates,
         Filesystem $filesystem,
         Environment $twig
@@ -43,13 +43,18 @@ class TemplateApply
     public function apply()
     {
         foreach ($this->packages as $package) {
-            foreach ($this->templates as $template) {
-                $template = $this->twig->createTemplate($template->contents());
+            $this->applyTemplates($package);
+        }
+    }
 
-                $this->filesystem->writeToFile($template->path(), $template->render([
-                    'package' => $package->variables()
-                ]));
-            }
+    private function applyTemplates($package)
+    {
+        foreach ($this->templates as $template) {
+            $template = $this->twig->createTemplate($template->contents());
+        
+            $this->filesystem->writeToFile($package->path($template->dest()), $template->render([
+                'package' => $package->variables()
+            ]));
         }
     }
 }

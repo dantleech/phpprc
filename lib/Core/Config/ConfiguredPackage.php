@@ -1,10 +1,11 @@
 <?php
 
-namespace Phpprc\Core\Package;
+namespace Phpprc\Core\Config;
 
 use Prophecy\Exception\InvalidArgumentException;
+use Phpprc\Core\Config\ConfiguredPackage;
 
-class Package
+class ConfiguredPackage
 {
     private $vendor;
     private $name;
@@ -16,7 +17,7 @@ class Package
         $this->name = $name;
     }
 
-    public static function fromString($composite): Package
+    public static function fromString($composite): ConfiguredPackage
     {
         $parts = array_filter(explode('/', $composite), function ($part) {
             return !empty($part);

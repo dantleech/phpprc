@@ -1,16 +1,16 @@
 <?php
 
-namespace Phpprc\Tests\Unit\Core\Package;
+namespace Phpprc\Tests\Unit\Core\Config;
 
 use PHPUnit\Framework\TestCase;
-use Phpprc\Core\Package\Package;
+use Phpprc\Core\Config\ConfiguredPackage;
 use Prophecy\Exception\InvalidArgumentException;
 
 class PackageTest extends TestCase
 {
     public function testFromString()
     {
-        $package = Package::fromString('vendor/name');
+        $package = ConfiguredPackage::fromString('vendor/name');
 
         $this->assertEquals('name', $package->name());
         $this->assertEquals('vendor', $package->vendor());
@@ -18,7 +18,7 @@ class PackageTest extends TestCase
 
     public function testSetAttributes()
     {
-        $package = Package::fromString('foo/bar');
+        $package = ConfiguredPackage::fromString('foo/bar');
         $package = $package->withAttributes([
             'one' => 'two',
         ]);
@@ -33,7 +33,7 @@ class PackageTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Invalid package name');
-        Package::fromString($name);
+        ConfiguredPackage::fromString($name);
     }
 
     public function provideInvalidName()

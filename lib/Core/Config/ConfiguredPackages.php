@@ -1,10 +1,10 @@
 <?php
 
-namespace Phpprc\Core\Package;
+namespace Phpprc\Core\Config;
 
 use IteratorAggregate;
 
-class SelectedPackages implements IteratorAggregate
+class ConfiguredPackages implements IteratorAggregate
 {
     /**
      * @var array
