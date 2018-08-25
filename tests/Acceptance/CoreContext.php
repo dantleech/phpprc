@@ -3,8 +3,8 @@
 namespace Phpprc\Tests\Acceptance;
 
 use Behat\Gherkin\Node\PyStringNode;
-use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Behat\Context\Context;
+use PHPUnit\Framework\Assert;
 use Phpactor\TestUtils\Workspace;
 use RuntimeException;
 use Symfony\Component\Process\Process;
@@ -65,6 +65,6 @@ class CoreContext implements Context
      */
     public function fileShouldExistWithContents($arg1, PyStringNode $string)
     {
-        throw new PendingException();
+        Assert::assertEquals((string) $string, $this->workspace->getContents($arg1));
     }
 }

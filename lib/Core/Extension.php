@@ -2,11 +2,11 @@
 
 namespace Phpprc\Core;
 
-use Phpactor\Container\Container;
+use Phpactor\Container\ContainerBuilder;
 
 interface Extension
 {
     public function configure(ParameterResolver $optionsResolver);
 
-    public function register(Container $container);
+    public function register(ContainerBuilder $container);
 }

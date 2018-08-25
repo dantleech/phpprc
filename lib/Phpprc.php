@@ -3,9 +3,9 @@
 namespace Phpprc;
 
 use Phpactor\Container\PhpactorContainer;
-use Phpprc\Bridge\Symfony\Container\SymfonyParameterResolver;
-use Phpprc\Core\Extension;
+use Phpprc\Core\SymfonyParameterResolver;
 use Phpprc\Extension\Core\CoreExtension;
+use Phpprc\Extension\Template\TemplateExtension;
 use Psr\Container\ContainerInterface;
 
 class Phpprc
@@ -14,7 +14,8 @@ class Phpprc
      * @var Extension[]
      */
     private $extensions = [
-        CoreExtension::class
+        CoreExtension::class,
+        TemplateExtension::class,
     ];
 
     public function container(): ContainerInterface

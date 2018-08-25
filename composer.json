@@ -12,7 +12,9 @@
         "symfony/console": "^4.1",
         "twig/twig": "^2.5",
         "phpactor/container": "^1.0",
-        "symfony/options-resolver": "^4.1"
+        "symfony/options-resolver": "^4.1",
+        "webmozart/path-util": "^2.3",
+        "seld/jsonlint": "^1.7"
     },
     "require-dev": {
         "behat/behat": "^3.5",
