@@ -1,6 +1,6 @@
 <?php
 
-namespace Phpprc\Core\Container;
+namespace Phpprc\Core;
 
 interface ParameterResolver
 {

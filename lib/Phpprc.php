@@ -4,7 +4,7 @@ namespace Phpprc;
 
 use Phpactor\Container\PhpactorContainer;
 use Phpprc\Bridge\Symfony\Container\SymfonyParameterResolver;
-use Phpprc\Core\Container\Extension;
+use Phpprc\Core\Extension;
 use Phpprc\Extension\Core\CoreExtension;
 use Psr\Container\ContainerInterface;
 

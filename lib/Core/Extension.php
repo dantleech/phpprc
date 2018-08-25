@@ -1,6 +1,6 @@
 <?php
 
-namespace Phpprc\Core\Container;
+namespace Phpprc\Core;
 
 use Phpactor\Container\Container;
 

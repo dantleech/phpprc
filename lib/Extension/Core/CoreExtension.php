@@ -3,8 +3,8 @@
 namespace Phpprc\Extension\Core;
 
 use Phpactor\Container\Container;
-use Phpprc\Core\Container\Extension;
-use Phpprc\Core\Container\ParameterResolver;
+use Phpprc\Core\Extension;
+use Phpprc\Core\ParameterResolver;
 use Phpprc\Extension\Core\Console\Application;
 
 class CoreExtension implements Extension

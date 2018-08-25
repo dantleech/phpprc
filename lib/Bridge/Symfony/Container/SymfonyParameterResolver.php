@@ -2,7 +2,7 @@
 
 namespace Phpprc\Bridge\Symfony\Container;
 
-use Phpprc\Core\Container\ParameterResolver;
+use Phpprc\Core\ParameterResolver;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SymfonyParameterResolver implements ParameterResolver
