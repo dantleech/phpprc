@@ -21,11 +21,11 @@ class Phpprc
         TemplateExtension::class,
     ];
 
-    public function container(): ContainerInterface
+    public function container(string $cwd): ContainerInterface
     {
         $parameterResolver = new SymfonyParameterResolver();
         $extensions = $this->resolveExtensions($parameterResolver);
-        $cwd = getcwd();
+        $cwd = $cwd ?: getcwd();
         $config = $this->loadConfig($cwd);
         $config['cwd'] = $cwd;
 

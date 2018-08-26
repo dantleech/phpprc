@@ -3,17 +3,17 @@ Feature: Apply templates
     Scenario: Apply template to multiple packages
         Given the file "templates/mytemplate.twig":
         """
-        Hello {{ package.vendor }}/{{ package.name }} {{ package.title }}
+        Hello {{ package.vendor }}/{{ package.name }} {{ package.config.title }}
         """
         And the following config:
         """
         {
-            "modules": {
-                "template": {
-                    "source": "templates/my-template.twig",
+            "template.apply": [
+                {
+                    "source": "templates/mytemplate.twig",
                     "dest": "README.md"
                 }
-            },
+            ],
             "prototype": {
                 "base_path": "base"
             },

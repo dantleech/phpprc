@@ -2,6 +2,7 @@
 
 namespace Phpprc\Core\Core;
 
+use RuntimeException;
 use Webmozart\PathUtil\Path;
 
 class Filesystem
@@ -37,19 +38,36 @@ class Filesystem
         return file_exists(Path::join([$this->basePath, $relativePath]));
     }
 
-    public function readContents($configFile): string
+    public function readContents($path): string
     {
-        $this->assertFileExists($configFile);
-        return file_get_contents($configFile);
+        $path = $this->makeAbsolute($path);
+        $this->assertFileExists($path);
+        return file_get_contents($path);
     }
 
-    private function assertFileExists($configFile)
+    public function writeToFile($file, string $contents)
     {
-        if (!file_exists($configFile)) {
+        $file = $this->makeAbsolute($file);
+
+        if (!file_exists(dirname($file))) {
+            mkdir(dirname($file), 0777, true);
+        }
+
+        file_put_contents($file, $contents);
+    }
+
+    private function assertFileExists($path)
+    {
+        if (!file_exists($path)) {
             throw new RuntimeException(sprintf(
                 'File "%s" does not exist',
-                $configFile
+                $path
             ));
         }
+    }
+
+    private function makeAbsolute(string $path): string
+    {
+        return Path::makeAbsolute($path, $this->basePath);
     }
 }

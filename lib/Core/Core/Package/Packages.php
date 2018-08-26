@@ -2,7 +2,9 @@
 
 namespace Phpprc\Core\Core\Package;
 
-class Packages
+use IteratorAggregate;
+
+class Packages implements IteratorAggregate
 {
     /**
      * @var Package[]
@@ -19,5 +21,15 @@ class Packages
     private function add(Package $package)
     {
         $this->packages[] = $package;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getIterator()
+    {
+        foreach ($this->packages as $package) {
+            yield $package;
+        }
     }
 }

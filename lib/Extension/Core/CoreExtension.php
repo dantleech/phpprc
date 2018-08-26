@@ -10,6 +10,7 @@ use Phpprc\Core\Core\Config\Loader;
 use Phpprc\Core\Core\Extension;
 use Phpprc\Core\Core\Filesystem;
 use Phpprc\Core\Core\Package\PackageFactory;
+use Phpprc\Core\Core\Package\PackagePathGenerator;
 use Phpprc\Core\Core\Package\Packages;
 use Phpprc\Core\Core\Package\PackagesFactory;
 use Phpprc\Core\Core\ParameterResolver;
@@ -87,6 +88,10 @@ class CoreExtension implements Extension
                 $container->get(PackageFactory::class),
                 $container->getParameter(self::PARAM_PACKAGES)
             );
+        });
+
+        $container->register(PackagePathGenerator::class, function (Container $container) {
+            return new PackagePathGenerator($container->getParameter(self::PARAM_CWD));
         });
     }
 }

@@ -4,6 +4,8 @@ namespace Phpprc\Extension\Template\Service;
 
 use Phpprc\Core\Core\Filesystem;
 use Phpprc\Core\Core\Config\ConfiguredPackages;
+use Phpprc\Core\Core\Package\Package;
+use Phpprc\Core\Core\Package\PackagePathGenerator;
 use Phpprc\Core\Core\Package\Packages;
 use Phpprc\Core\Template\Templates;
 use Phpprc\Core\Template\Templating;
@@ -31,16 +33,23 @@ class TemplateApply
      */
     private $templating;
 
+    /**
+     * @var PackagePathGenerator
+     */
+    private $pathGenerator;
+
     public function __construct(
         Filesystem $filesystem,
         Packages $packages,
         Templates $templates,
-        Templating $templating
+        Templating $templating,
+        PackagePathGenerator $pathGenerator
     ) {
         $this->filesystem = $filesystem;
         $this->packages = $packages;
         $this->templates = $templates;
         $this->templating = $templating;
+        $this->pathGenerator = $pathGenerator;
     }
 
     public function apply()
@@ -53,11 +62,14 @@ class TemplateApply
     private function applyTemplates(Package $package)
     {
         foreach ($this->templates as $template) {
-            $rendered = $this->templating->renderFromTemplate($template->contents(), [
-                'package' => $package->variables()
+            $rendered = $this->templating->renderFromTemplate($this->filesystem->readContents($template->source()), [
+                'package' => $package
             ]);
         
-            $this->filesystem->writeToFile($package->path($template->dest()), $rendered);
+            $this->filesystem->writeToFile(
+                $this->pathGenerator->generateFor($package, $template->dest()),
+                $rendered
+            );
         }
     }
 }

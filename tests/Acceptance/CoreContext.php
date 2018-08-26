@@ -6,7 +6,11 @@ use Behat\Gherkin\Node\PyStringNode;
 use Behat\Behat\Context\Context;
 use PHPUnit\Framework\Assert;
 use Phpactor\TestUtils\Workspace;
+use Phpprc\Extension\Core\Console\Application;
+use Phpprc\Phpprc;
 use RuntimeException;
+use Symfony\Component\Console\Input\StringInput;
+use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Process\Process;
 
 class CoreContext implements Context
@@ -46,18 +50,12 @@ class CoreContext implements Context
      */
     public function iExecute($args)
     {
-        $process = new Process(__DIR__ . '/../../bin/phpprc ' . $args);
-        $process->setWorkingDirectory($this->workspace->path('/'));
-        $process->run();
-
-        if ($process->getExitCode() !== 0) {
-            throw new RuntimeException(sprintf(
-                'Phpprc did not exit with 0 code, got "%s":%s%s',
-                $process->getExitCode(),
-                PHP_EOL,
-                $process->getErrorOutput()
-            ));
-        }
+        $input = new StringInput($args);
+        $output = new BufferedOutput();
+        $application = (new Phpprc())->container($this->workspace->path('/'))->get(Application::class);
+        $application->setAutoExit(false);
+        $application->setCatchExceptions(false);
+        $application->run($input, $output);
     }
 
     /**

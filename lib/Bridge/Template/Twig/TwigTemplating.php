@@ -16,7 +16,9 @@ class TwigTemplating implements Templating
 
     public function __construct(?Environment $twig = null)
     {
-        $this->twig = $twig ?: new Environment(new ArrayLoader());
+        $this->twig = $twig ?: new Environment(new ArrayLoader(), [
+            'strict_variables' => true,
+        ]);
     }
 
     public function renderFromTemplate(string $templateBody, array $parameters): string
