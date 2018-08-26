@@ -5,7 +5,6 @@ namespace Phpprc\Core\Core\Package;
 use InvalidArgumentException;
 use Phpprc\Core\Core\ConfigResolver;
 use Phpprc\Core\Core\ParameterResolver;
-use Phpprc\Core\Core\Package\Package;
 
 class PackageFactory
 {

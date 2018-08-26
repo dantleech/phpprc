@@ -3,8 +3,6 @@
 namespace Phpprc\Tests\Unit\Core\Core\Config;
 
 use PHPUnit\Framework\TestCase;
-use Phpprc\Core\Core\Config\Config;
-use Phpprc\Core\Core\Config\ConfigFactory;
 use Phpprc\Core\Core\Config\JsonLoader;
 use Phpprc\Core\Core\Filesystem;
 use Seld\JsonLint\JsonParser;

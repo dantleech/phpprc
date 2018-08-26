@@ -2,9 +2,7 @@
 
 namespace Phpprc\Tests\Unit\Core\Core\Package;
 
-use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
-use Phpprc\Core\Core\ConfigResolver;
 use Phpprc\Core\Core\Package\Package;
 use Phpprc\Core\Core\Package\PackageFactory;
 use Phpprc\Core\Core\Package\Packages;

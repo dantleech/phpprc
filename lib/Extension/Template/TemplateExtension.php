@@ -8,16 +8,13 @@ use Phpprc\Bridge\Template\Twig\TwigTemplating;
 use Phpprc\Core\Core\ConfigResolver;
 use Phpprc\Core\Core\Extension;
 use Phpprc\Core\Core\Filesystem;
-use Phpprc\Core\Core\Package\PackageFactory;
 use Phpprc\Core\Core\Package\PackagePathGenerator;
 use Phpprc\Core\Core\Package\Packages;
-use Phpprc\Core\Core\Package\PackagesFactory;
 use Phpprc\Core\Core\ParameterResolver;
 use Phpprc\Core\Template\TemplateFactory;
 use Phpprc\Core\Template\Templates;
 use Phpprc\Core\Template\TemplatesFactory;
 use Phpprc\Core\Template\Templating;
-use Phpprc\Extension\Core\CoreExtension;
 use Phpprc\Extension\Template\Command\TemplateApplyCommand;
 use Phpprc\Extension\Template\Service\TemplateApply;
 

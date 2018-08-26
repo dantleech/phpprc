@@ -3,13 +3,11 @@
 namespace Phpprc\Extension\Template\Service;
 
 use Phpprc\Core\Core\Filesystem;
-use Phpprc\Core\Core\Config\ConfiguredPackages;
 use Phpprc\Core\Core\Package\Package;
 use Phpprc\Core\Core\Package\PackagePathGenerator;
 use Phpprc\Core\Core\Package\Packages;
 use Phpprc\Core\Template\Templates;
 use Phpprc\Core\Template\Templating;
-use Twig\Environment;
 
 class TemplateApply
 {

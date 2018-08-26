@@ -5,8 +5,6 @@ namespace Phpprc\Extension\Core;
 use Phpactor\Container\Container;
 use Phpactor\Container\ContainerBuilder;
 use Phpprc\Core\Core\ConfigResolver;
-use Phpprc\Core\Core\Config\JsonLoader;
-use Phpprc\Core\Core\Config\Loader;
 use Phpprc\Core\Core\Extension;
 use Phpprc\Core\Core\Filesystem;
 use Phpprc\Core\Core\Package\PackageFactory;
@@ -15,7 +13,6 @@ use Phpprc\Core\Core\Package\Packages;
 use Phpprc\Core\Core\Package\PackagesFactory;
 use Phpprc\Core\Core\ParameterResolver;
 use Phpprc\Extension\Core\Console\Application;
-use Seld\JsonLint\JsonParser;
 
 class CoreExtension implements Extension
 {

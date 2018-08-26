@@ -9,7 +9,6 @@ use Phpprc\Core\Core\Package\PackageFactory;
 
 class PackageFactoryTest extends TestCase
 {
-
     public function testFromString()
     {
         $package = $this->createFactory()->createFromFullNameAndConfig('vendor/name', [

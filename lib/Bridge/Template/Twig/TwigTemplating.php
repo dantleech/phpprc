@@ -4,7 +4,6 @@ namespace Phpprc\Bridge\Template\Twig;
 
 use Phpprc\Core\Template\Templating;
 use Twig\Environment;
-use Twig\Extension\StringLoader;
 use Twig\Loader\ArrayLoader;
 
 class TwigTemplating implements Templating

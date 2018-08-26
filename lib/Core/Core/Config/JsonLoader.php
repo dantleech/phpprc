@@ -50,6 +50,5 @@ class JsonLoader implements Loader
         $configContents = $this->filesystem->readContents($configFile);
 
         return $this->parser->parse($configContents);
-
     }
 }

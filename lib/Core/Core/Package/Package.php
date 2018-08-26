@@ -2,9 +2,6 @@
 
 namespace Phpprc\Core\Core\Package;
 
-use Prophecy\Exception\InvalidArgumentException;
-use Phpprc\Core\Core\Package\Package;
-
 class Package
 {
     private $vendor;
@@ -19,8 +16,7 @@ class Package
         string $basePath,
         array $modules,
         array $config
-    )
-    {
+    ) {
         $this->vendor = $vendor;
         $this->name = $name;
         $this->config = $config;

@@ -4,7 +4,6 @@ namespace Phpprc;
 
 use Phpactor\Container\PhpactorContainer;
 use Phpprc\Core\Core\Config\JsonLoader;
-use Phpprc\Core\Core\Config\Loader;
 use Phpprc\Bridge\Core\Symfony\SymfonyParameterResolver;
 use Phpprc\Core\Core\Filesystem;
 use Phpprc\Extension\Core\CoreExtension;

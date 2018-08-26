@@ -8,10 +8,8 @@ use PHPUnit\Framework\Assert;
 use Phpactor\TestUtils\Workspace;
 use Phpprc\Extension\Core\Console\Application;
 use Phpprc\Phpprc;
-use RuntimeException;
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\BufferedOutput;
-use Symfony\Component\Process\Process;
 
 class CoreContext implements Context
 {
