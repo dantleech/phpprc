@@ -2,8 +2,8 @@
 
 namespace Phpprc\Core\Core\Config;
 
+use Phpprc\Bridge\Core\Seld\SeldJsonParser;
 use Phpprc\Core\Core\Filesystem;
-use Seld\JsonLint\JsonParser;
 
 class JsonLoader implements Loader
 {
@@ -25,10 +25,10 @@ class JsonLoader implements Loader
      */
     private $configFactory;
 
-    public function __construct(?Filesystem $filesystem = null, ?JsonParser $parser = null)
+    public function __construct(?Filesystem $filesystem = null, JsonParser $parser = null)
     {
         $this->filesystem = $filesystem ?: new Filesystem(getcwd());
-        $this->parser = $parser ?: new JsonParser();
+        $this->parser = $parser ?: new SeldJsonParser();
     }
 
     public function load(): array
@@ -49,6 +49,7 @@ class JsonLoader implements Loader
 
         $configContents = $this->filesystem->readContents($configFile);
 
-        return $this->parser->parse($configContents, JsonParser::PARSE_TO_ASSOC);
+        return $this->parser->parse($configContents);
+
     }
 }
