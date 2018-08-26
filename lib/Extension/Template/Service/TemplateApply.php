@@ -4,15 +4,13 @@ namespace Phpprc\Extension\Template\Service;
 
 use Phpprc\Core\Core\Filesystem;
 use Phpprc\Core\Core\Config\ConfiguredPackages;
+use Phpprc\Core\Core\Package\Packages;
+use Phpprc\Core\Template\Templates;
+use Phpprc\Core\Template\Templating;
 use Twig\Environment;
 
 class TemplateApply
 {
-    /**
-     * @var Environment
-     */
-    private $twig;
-
     /**
      * @var Filesystem
      */
@@ -28,16 +26,21 @@ class TemplateApply
      */
     private $templates;
 
+    /**
+     * @var Templating
+     */
+    private $templating;
+
     public function __construct(
-        ConfiguredPackages $packages,
-        Templates $templates,
         Filesystem $filesystem,
-        Environment $twig
+        Packages $packages,
+        Templates $templates,
+        Templating $templating
     ) {
-        $this->twig = $twig;
         $this->filesystem = $filesystem;
         $this->packages = $packages;
         $this->templates = $templates;
+        $this->templating = $templating;
     }
 
     public function apply()
@@ -50,11 +53,11 @@ class TemplateApply
     private function applyTemplates(Package $package)
     {
         foreach ($this->templates as $template) {
-            $template = $this->twig->createTemplate($template->contents());
-        
-            $this->filesystem->writeToFile($package->path($template->dest()), $template->render([
+            $rendered = $this->templating->renderFromTemplate($template->contents(), [
                 'package' => $package->variables()
-            ]));
+            ]);
+        
+            $this->filesystem->writeToFile($package->path($template->dest()), $rendered);
         }
     }
 }

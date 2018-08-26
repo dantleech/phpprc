@@ -13,19 +13,18 @@ Feature: Apply templates
                     "source": "templates/my-template.twig",
                     "dest": "README.md"
                 }
-            }
+            },
             "prototype": {
-                "apply": [ "template" ],
                 "base_path": "base"
             },
             "packages": {
                 "vendor1/package1": {
-                    "attributes": {
+                    "config": {
                         "title": "One"
                     }
                 },
                 "vendor1/package2": {
-                    "attributes": {
+                    "config": {
                         "title": "Two"
                     }
                 }

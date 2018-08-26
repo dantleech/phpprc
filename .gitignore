@@ -3,3 +3,4 @@ composer.lock
 phpunit.xml
 composer.phar
 .php_cs.cache
+tests/Workspace

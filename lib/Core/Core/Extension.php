@@ -6,7 +6,7 @@ use Phpactor\Container\ContainerBuilder;
 
 interface Extension
 {
-    public function configure(ParameterResolver $optionsResolver);
+    public function configure(ParameterResolver $parameters);
 
     public function register(ContainerBuilder $container);
 }

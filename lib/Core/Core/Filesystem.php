@@ -37,7 +37,19 @@ class Filesystem
         return file_exists(Path::join([$this->basePath, $relativePath]));
     }
 
-    public function readContents($configFile)
+    public function readContents($configFile): string
     {
+        $this->assertFileExists($configFile);
+        return file_get_contents($configFile);
+    }
+
+    private function assertFileExists($configFile)
+    {
+        if (!file_exists($configFile)) {
+            throw new RuntimeException(sprintf(
+                'File "%s" does not exist',
+                $configFile
+            ));
+        }
     }
 }

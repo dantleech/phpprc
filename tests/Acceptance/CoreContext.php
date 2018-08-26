@@ -21,7 +21,7 @@ class CoreContext implements Context
      */
     public function __construct()
     {
-        $this->workspace = Workspace::create(__DIR__ . '/Workspace');
+        $this->workspace = Workspace::create(__DIR__ . '/../Workspace');
         $this->workspace->reset();
     }
 

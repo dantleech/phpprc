@@ -16,6 +16,7 @@ class TemplateApplyCommand extends Command
 
     public function __construct(TemplateApply $apply)
     {
+        parent::__construct();
         $this->apply = $apply;
     }
 
