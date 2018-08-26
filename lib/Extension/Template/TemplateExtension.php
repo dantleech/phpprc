@@ -4,8 +4,8 @@ namespace Phpprc\Extension\Template;
 
 use Phpactor\Container\Container;
 use Phpactor\Container\ContainerBuilder;
-use Phpprc\Core\Extension;
-use Phpprc\Core\ParameterResolver;
+use Phpprc\Core\Core\Extension;
+use Phpprc\Core\Core\ParameterResolver;
 use Phpprc\Extension\Template\Command\TemplateApplyCommand;
 
 class TemplateExtension implements Extension

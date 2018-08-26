@@ -1,6 +1,6 @@
 <?php
 
-namespace Phpprc\Core\Config;
+namespace Phpprc\Core\Core\Config;
 
 interface Loader
 {

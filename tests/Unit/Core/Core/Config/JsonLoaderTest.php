@@ -1,12 +1,12 @@
 <?php
 
-namespace Phpprc\Tests\Unit\Core\Config;
+namespace Phpprc\Tests\Unit\Core\Core\Config;
 
 use PHPUnit\Framework\TestCase;
-use Phpprc\Core\Config\Config;
-use Phpprc\Core\Config\ConfigFactory;
-use Phpprc\Core\Config\JsonLoader;
-use Phpprc\Core\Filesystem;
+use Phpprc\Core\Core\Config\Config;
+use Phpprc\Core\Core\Config\ConfigFactory;
+use Phpprc\Core\Core\Config\JsonLoader;
+use Phpprc\Core\Core\Filesystem;
 use Seld\JsonLint\JsonParser;
 
 class JsonLoaderTest extends TestCase

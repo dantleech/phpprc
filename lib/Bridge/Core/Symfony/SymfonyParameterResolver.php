@@ -1,7 +1,8 @@
 <?php
 
-namespace Phpprc\Core;
+namespace Phpprc\Bridge\Core\Symfony;
 
+use Phpprc\Core\Core\ParameterResolver;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SymfonyParameterResolver implements ParameterResolver
@@ -38,6 +39,6 @@ class SymfonyParameterResolver implements ParameterResolver
 
     public function resolve(array $options = []): array
     {
-        return $this->resolver->resolve();
+        return $this->resolver->resolve($options);
     }
 }

@@ -2,8 +2,8 @@
 
 namespace Phpprc\Extension\Template\Service;
 
-use Phpprc\Core\Filesystem;
-use Phpprc\Core\Config\ConfiguredPackages;
+use Phpprc\Core\Core\Filesystem;
+use Phpprc\Core\Core\Config\ConfiguredPackages;
 use Twig\Environment;
 
 class TemplateApply

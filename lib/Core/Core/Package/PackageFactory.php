@@ -1,9 +1,11 @@
 <?php
 
-namespace Phpprc\Core\Package;
+namespace Phpprc\Core\Core\Package;
 
-use Phpprc\Core\ConfigResolver;
-use Phpprc\Core\ParameterResolver;
+use InvalidArgumentException;
+use Phpprc\Core\Core\ConfigResolver;
+use Phpprc\Core\Core\ParameterResolver;
+use Phpprc\Core\Core\Package\Package;
 
 class PackageFactory
 {
@@ -12,16 +14,23 @@ class PackageFactory
      */
     private $prototype;
 
+    /**
+     * @var ConfigResolver
+     */
+    private $configResolver;
+
+
     public function __construct(array $prototype, ConfigResolver $configResolver)
     {
         $this->prototype = $prototype;
+        $this->configResolver = $configResolver;
     }
 
-    public function createFromFullNameAndConfig(string $name, array $config)
+    public function createFromFullNameAndConfig(string $name, array $config): Package
     {
         $config = array_merge($this->prototype, $config);
 
-        $config = $this->configResolver->resolveConfig($config, function (ParameterResolver $resolver) {
+        $config = $this->configResolver->resolveConfig(function (ParameterResolver $resolver) {
             $resolver->setDefaults([
                 'modules' => [],
                 'config' => [],
@@ -32,29 +41,29 @@ class PackageFactory
             $resolver->setAllowedTypes('modules', ['array']);
             $resolver->setAllowedTypes('config', ['array']);
             $resolver->setAllowedTypes('base_path', ['string']);
-        });
+        }, $config);
 
-        [$vendor, $name] = $this->extractPackageNameParts();
+        [$vendor, $name] = $this->extractPackageNameParts($name);
 
-        return new Package([
+        return new Package(
             $vendor,
             $name,
             $config['base_path'],
             $config['modules'],
-            $config['config'],
-        ]);
+            $config['config']
+        );
     }
 
-    private function extractPackageNameParts()
+    private function extractPackageNameParts(string $fullName)
     {
-        $parts = array_filter(explode('/', $composite), function ($part) {
+        $parts = array_filter(explode('/', $fullName), function ($part) {
             return !empty($part);
         });
         
         if (count($parts) !== 2) {
             throw new InvalidArgumentException(sprintf(
                 'Invalid package name "%s", expected package name of form <vendor>/<name>',
-                $composite
+                $fullName
             ));
         }
         return $parts;

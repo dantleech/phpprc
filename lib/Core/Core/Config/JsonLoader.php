@@ -1,8 +1,8 @@
 <?php
 
-namespace Phpprc\Core\Config;
+namespace Phpprc\Core\Core\Config;
 
-use Phpprc\Core\Filesystem;
+use Phpprc\Core\Core\Filesystem;
 use Seld\JsonLint\JsonParser;
 
 class JsonLoader implements Loader

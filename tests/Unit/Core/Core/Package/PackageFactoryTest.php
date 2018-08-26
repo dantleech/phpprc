@@ -1,29 +1,23 @@
 <?php
 
-namespace Phpprc\Tests\Unit\Core\Config;
+namespace Phpprc\Tests\Unit\Core\Core\Package;
 
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
-use Phpprc\Core\Config\ConfiguredPackage;
-use Prophecy\Exception\InvalidArgumentException;
+use Phpprc\Core\Core\ConfigResolver;
+use Phpprc\Core\Core\Package\PackageFactory;
 
-class PackageTest extends TestCase
+class PackageFactoryTest extends TestCase
 {
+
     public function testFromString()
     {
-        $package = ConfiguredPackage::fromString('vendor/name');
+        $package = $this->createFactory()->createFromFullNameAndConfig('vendor/name', [
+            'base_path' => '/base/path',
+        ]);
 
         $this->assertEquals('name', $package->name());
         $this->assertEquals('vendor', $package->vendor());
-    }
-
-    public function testSetAttributes()
-    {
-        $package = ConfiguredPackage::fromString('foo/bar');
-        $package = $package->withAttributes([
-            'one' => 'two',
-        ]);
-
-        $this->assertEquals(['one' => 'two'], $package->attributes());
     }
 
     /**
@@ -33,7 +27,9 @@ class PackageTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Invalid package name');
-        ConfiguredPackage::fromString($name);
+        $this->createFactory([
+            'base_path' => '/base/path',
+        ])->createFromFullNameAndConfig($name, []);
     }
 
     public function provideInvalidName()
@@ -41,5 +37,10 @@ class PackageTest extends TestCase
         yield 'empty' => [ '' ];
         yield 'one part' => [ 'one' ];
         yield 'three parts' => ['one/two/three'];
+    }
+
+    private function createFactory($prototype = []): PackageFactory
+    {
+        return new PackageFactory($prototype, new ConfigResolver());
     }
 }

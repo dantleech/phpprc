@@ -1,6 +1,6 @@
 <?php
 
-namespace Phpprc\Core;
+namespace Phpprc\Core\Core;
 
 use Webmozart\PathUtil\Path;
 

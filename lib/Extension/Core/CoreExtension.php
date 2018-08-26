@@ -4,13 +4,14 @@ namespace Phpprc\Extension\Core;
 
 use Phpactor\Container\Container;
 use Phpactor\Container\ContainerBuilder;
-use Phpprc\Core\Config\ConfigFactory;
-use Phpprc\Core\Config\JsonLoader;
-use Phpprc\Core\Config\Loader;
-use Phpprc\Core\Extension;
-use Phpprc\Core\Filesystem;
-use Phpprc\Core\Package\PackageFactory;
-use Phpprc\Core\ParameterResolver;
+use Phpprc\Core\Core\ConfigResolver;
+use Phpprc\Core\Core\Config\JsonLoader;
+use Phpprc\Core\Core\Config\Loader;
+use Phpprc\Core\Core\Extension;
+use Phpprc\Core\Core\Filesystem;
+use Phpprc\Core\Core\Package\PackageFactory;
+use Phpprc\Core\Core\Package\PackagesFactory;
+use Phpprc\Core\Core\ParameterResolver;
 use Phpprc\Extension\Core\Console\Application;
 use Seld\JsonLint\JsonParser;
 
@@ -50,29 +51,17 @@ class CoreExtension implements Extension
 
     private function registerConfig(ContainerBuilder $container)
     {
-        $container->register(Config::class, function (Container $container) {
-            return $container->get(Loader::class)->load();
-        });
-        $container->register(Loader::class, function (Container $container) {
-            return new JsonLoader(
-                $container->get(Filesystem::class),
-                new JsonParser(),
-                $container->get(ConfigFactory::class)
-            );
-        });
-        $container->register(Filesystem::class, function (Container $container) {
-            return new Filesystem();
-        });
-            return new ConfigFactory();
-        $container->register(ConfigFactory::class, function (Container $container) {
+        $container->register(ConfigResolver::class, function (Container $container) {
+            return new ConfigResolver();
         });
     }
 
     private function registerPackages(ContainerBuilder $container)
     {
         $container->register(PackageFactory::class, function (Container $container) {
-            return new PackageFactory($container->getParameter('prototype'), $container->getParameter('cwd'));
+            return new PackageFactory($container->getParameter('prototype'), $container->get(ConfigResolver::class));
         });
+
         $container->register(PackagesFactory::class, function (Container $container) {
             return new PackagesFactory($container->get(PackageFactory::class, $container->getParameter('packages')));
         });

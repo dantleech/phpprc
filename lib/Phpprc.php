@@ -3,9 +3,10 @@
 namespace Phpprc;
 
 use Phpactor\Container\PhpactorContainer;
-use Phpprc\Core\Config\JsonLoader;
-use Phpprc\Core\Config\Loader;
-use Phpprc\Core\SymfonyParameterResolver;
+use Phpprc\Core\Core\Config\JsonLoader;
+use Phpprc\Core\Core\Config\Loader;
+use Phpprc\Bridge\Core\Symfony\SymfonyParameterResolver;
+use Phpprc\Core\Core\Filesystem;
 use Phpprc\Extension\Core\CoreExtension;
 use Phpprc\Extension\Template\TemplateExtension;
 use Psr\Container\ContainerInterface;
@@ -24,7 +25,9 @@ class Phpprc
     {
         $parameterResolver = new SymfonyParameterResolver();
         $extensions = $this->resolveExtensions($parameterResolver);
-        $config = $this->loadConfig();
+        $cwd = getcwd();
+        $config = $this->loadConfig($cwd);
+        $config['cwd'] = $cwd;
 
         $container = $this->loadContainer($parameterResolver, $extensions, $config);
 
@@ -53,9 +56,9 @@ class Phpprc
         return $extensions;
     }
 
-    private function loadConfig()
+    private function loadConfig(string $cwd)
     {
-        $loader = new JsonLoader();
+        $loader = new JsonLoader(new Filesystem($cwd));
         return $loader->load();
     }
 }
